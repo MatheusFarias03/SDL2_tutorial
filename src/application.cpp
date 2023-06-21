@@ -1,4 +1,6 @@
 #include "../include/application.hpp"
+#include <unistd.h>
+#include <limits.h>
 
 
 // Helper function to load BMP images.
@@ -38,7 +40,7 @@ Application::Application()
         return;
     }
 
-    m_image = load_surface("snail.bmp");
+    m_image = load_surface("src/snail.bmp");
 }
 
 
