@@ -41,6 +41,11 @@ Application::Application()
     }
 
     m_image = load_surface("src/snail.bmp");
+
+    m_image_position.x = 0;
+    m_image_position.y = 0;
+    m_image_position.w = 256;
+    m_image_position.h = 256;
 }
 
 
@@ -51,7 +56,7 @@ Application::~Application()
 }
 
 
-void Application::update()
+void Application::loop()
 {
     bool keep_window_open = true;
     while(keep_window_open)
@@ -68,13 +73,23 @@ void Application::update()
                     break;
             }
         }
+
+        update(1.0/60.0);
         draw();
     }
+}
+
+
+void Application::update(double delta_time)
+{
+    m_image_x = m_image_x + (5 * delta_time);
+    m_image_position.x = m_image_x;
 }
 
 
 void Application::draw()
 {
     SDL_UpdateWindowSurface(m_window);
-    SDL_BlitSurface(m_image, NULL, m_window_surface, NULL);
+    SDL_FillRect(m_window_surface, NULL, SDL_MapRGB(m_window_surface->format, 0, 0, 0));
+    SDL_BlitSurface(m_image, NULL, m_window_surface, &m_image_position);
 }

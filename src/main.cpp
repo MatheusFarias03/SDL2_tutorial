@@ -6,9 +6,8 @@
 int main()
 {
     Application app;
-
-    app.update();
-    app.draw();
+    
+    app.loop();
 
     return 0;
 }

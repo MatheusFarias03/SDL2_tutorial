@@ -11,7 +11,7 @@ You can find the tutorial series at the following link:
 
 ## Project Description
 
-I wanted to learn more about SDL2 to be able to make apps and games with it. Turns out that I found Noah's article about it, read a little bit, found interesting, and wanted to follow along and document it aswell so that I can learn from it and have everything registered here on GitHub. 
+I wanted to learn more about SDL2 to be able to make apps and games with it. Turns out that I found Noah's article about it, read a little bit, found interesting, and wanted to follow along and document it aswell so that I can learn from it and have everything registered here on GitHub. You can see every step of the changes that I did and the progress of this project by looking at the commits. 
 
 ## Usage
 
