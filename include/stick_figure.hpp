@@ -1,20 +1,21 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-
-
-enum class Direction
-{
-    NONE,
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
-};
+#include "../include/spritesheet.hpp"
 
 class StickFigure
 {
 public:
+
+    enum class Direction
+    {
+        NONE,
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    };
+
     StickFigure();
     ~StickFigure() = default;
 
@@ -23,9 +24,11 @@ public:
     void handle_events(SDL_Event const &event);
 
 private:
-    SDL_Surface *m_image;
+    Spritesheet m_spritesheet;
+    Direction   m_direction; 
+    int         m_spritesheet_column;
+
     SDL_Rect    m_position;
     double      m_x;
     double      m_y;
-    Direction   m_direction; 
 };

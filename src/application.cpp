@@ -70,7 +70,7 @@ void Application::update(double delta_time)
 
 void Application::draw()
 {
-    SDL_FillRect(m_window_surface, nullptr, SDL_MapRGB(m_window_surface->format, 255, 255, 255));
+    SDL_FillRect(m_window_surface, nullptr, SDL_MapRGB(m_window_surface->format, 0, 0, 0));
     
     m_stick_figure.draw(m_window_surface);
     

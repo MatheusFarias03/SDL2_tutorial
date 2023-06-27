@@ -1,9 +1,15 @@
 #include "../include/stick_figure.hpp"
+#include "../include/spritesheet.hpp"
 
-StickFigure::StickFigure()
+
+int const SPRITESHEET_UP = 0;
+int const SPRITESHEET_LEFT = 1;
+int const SPRITESHEET_RIGHT = 2;
+int const SPRITESHEET_DOWN = 3;
+
+
+StickFigure::StickFigure(): m_spritesheet("src/H53_ghost.bmp", 1, 8)
 {
-    m_image = SDL_LoadBMP("src/snail.bmp");
-
     m_position.x = 0;
     m_position.y = 0;
     m_position.w = 256;
@@ -11,6 +17,11 @@ StickFigure::StickFigure()
 
     m_x = 0.0;
     m_y = 0.0;
+
+    m_direction = Direction::NONE;
+
+    m_spritesheet.select_sprite(0, 0);
+    m_spritesheet_column = 0;
 }
 
 
@@ -18,39 +29,50 @@ void StickFigure::update(double delta_time)
 {
     switch (m_direction)
     {
-    case Direction::NONE:
-        m_x += 0.0;
-        m_y += 0.0;
-        break;
+        case Direction::NONE:
+            m_x += 0.0;
+            m_y += 0.0;
+            m_spritesheet.select_sprite(0, 0);
+            break;
 
-    case Direction::UP:
-        m_y = m_y - (5.0 * delta_time);
-        break;
+        case Direction::UP:
+            m_y = m_y - (500.0 * delta_time);
+            m_spritesheet.select_sprite(m_spritesheet_column, SPRITESHEET_UP);
+            break;
 
-    case Direction::DOWN:
-        m_y = m_y + (5.0 * delta_time);
-        break;
+        case Direction::DOWN:
+            m_y = m_y + (500.0* delta_time);
+            m_spritesheet.select_sprite(m_spritesheet_column, SPRITESHEET_DOWN);
+            break;
 
-    case Direction::LEFT:
-        m_x = m_x - (5.0 * delta_time);
-        break;
+        case Direction::LEFT:
+            m_x = m_x - (500.0 * delta_time);
+            m_spritesheet.select_sprite(m_spritesheet_column, SPRITESHEET_LEFT);
+            break;
 
-    case Direction::RIGHT:
-        m_x = m_x + (5.0 * delta_time);
-        break;
-    
-    default:
-        break;
+        case Direction::RIGHT:
+            m_x = m_x + (500.0 * delta_time);
+            m_spritesheet.select_sprite(m_spritesheet_column, SPRITESHEET_RIGHT);
+            break;
+        
+        default:
+            break;
     }
 
     m_position.x = m_x;
     m_position.y = m_y;
+
+    m_spritesheet_column++;
+
+    if(m_spritesheet_column > 6)
+        m_spritesheet_column = 0;
 }
 
 
 void StickFigure::draw(SDL_Surface *window_surface)
 {
-    SDL_BlitSurface(m_image, nullptr, window_surface, &m_position);
+    m_spritesheet.draw_selected_sprite(window_surface, &m_position);
+    SDL_Delay(100);
 }
 
 
